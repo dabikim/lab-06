@@ -2,9 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+
 android {
     namespace = "com.example.listycity"
     compileSdk = 36
+
 
     defaultConfig {
         applicationId = "com.example.listycity"
@@ -12,9 +14,9 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -31,13 +33,28 @@ android {
     }
 }
 
-dependencies {
 
+dependencies {
+    // JUnit 5
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.0.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.0.1")
+
+
+    // Android + UI
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
+
+
+    // Instrumented tests (AndroidJUnitRunner)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
+
+// Ensure unit tests run on JUnit 5
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+
